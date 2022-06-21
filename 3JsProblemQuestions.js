@@ -10,6 +10,7 @@ const input = [1,2,4,591,392,391,2,5,10,2,1,1,1,20,20]
 
 function cleanRoom(array) {
     let orderedArray = [];
+<<<<<<< HEAD
     while (orderedArray.length < array.length) {
         for (let i = 0; i < array.length; i++) {
             // push bigger value to the end
@@ -26,6 +27,22 @@ function cleanRoom(array) {
             }
             
         }
+=======
+    for (let i = 0; i < array.length; i++) {
+        // push bigger value to the end or start the array
+        if (orderedArray.length === 0 || orderedArray[orderedArray.length - 1] <= array[i]) {
+            orderedArray.push(array[i]);
+        } else {
+            // find place to input the value in ordered array
+            for (let j = 0; j < orderedArray.length; j++) {
+                if (orderedArray[j] > array[i]) {
+                    orderedArray.splice(j, 0, array[i]);
+                    break;
+                }
+            }
+        }
+        
+>>>>>>> 70e2e53 (remove unnecessary while loop)
     }
     let groupedArray = []
     orderedArray.forEach(element => {
