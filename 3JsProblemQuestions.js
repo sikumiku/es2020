@@ -60,3 +60,56 @@ function findNumbers(array, targetNumber) {
 // Question 3: Write a function that converts HEX to RGB. Then Make that 
 // function auto-dect the formats so that if you enter HEX color format it 
 // returns RGB and if you enter RGB color format it returns HEX.
+
+// formula for calculating a value from hex pqxyrs
+// R = 16*p + q     G = 16*x + y     B = 16*r + s
+
+const convertHexValueToNumber = (hexElement) => {
+    var reg = new RegExp('^[0-9]*$');
+
+    if (reg.test(hexElement) === true) {
+        return parseInt(hexElement, 10);
+    }
+    switch(hexElement) {
+        case "A" :
+            return 10;
+        case "B" :
+            return 11;
+        case "C" :
+            return 12;
+        case "D" :
+            return 13;
+        case "E" :
+            return 14;
+        case "F" :
+            return 15;
+        default:
+            throw `Invalid hex element ${hexElement} given!`;
+    }
+}
+
+const calcDec = (val1, val2) => {
+    return 16 * val1 + val2
+}
+
+function convertHexToRgb(hex) {
+    let rgbValueArray = [];
+    let firstHexValue = null;
+    let hexValues = [...hex].map(num => {
+        return convertHexValueToNumber(num);
+    })
+
+    hexValues.forEach(hexValue => {
+        if (firstHexValue === null) {
+            firstHexValue = hexValue;
+        } else {
+            rgbValueArray.push(calcDec(firstHexValue, hexValue));
+            firstHexValue = null;
+        }
+    });
+    return rgbValueArray.join(",");
+}
+
+// format of hex AA1122, format of rgb 255,204,153
+// how to tell apart? length, commas, regex (correct would be to create regex pattern for both, 
+// but shorter is to look at length, if longer than 6 symbols and contains , then it is rgb.
