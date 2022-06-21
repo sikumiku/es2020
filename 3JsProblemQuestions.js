@@ -9,23 +9,27 @@
 const input = [1,2,4,591,392,391,2,5,10,2,1,1,1,20,20]
 
 function cleanRoom(array) {
-    let orderedArray = [];
-    for (let i = 0; i < array.length; i++) {
-        // push bigger value to the end or start the array
-        if (orderedArray.length === 0 || orderedArray[orderedArray.length - 1] <= array[i]) {
-            orderedArray.push(array[i]);
-        } else {
-            // find place to input the value in ordered array
-            for (let j = 0; j < orderedArray.length; j++) {
-                if (orderedArray[j] > array[i]) {
-                    orderedArray.splice(j, 0, array[i]);
-                    break;
+    const orderedArray = (array) => {
+        let orderedArray = []
+        for (let i = 0; i < array.length; i++) {
+                // push bigger value to the end or start the array
+            if (orderedArray.length === 0 || orderedArray[orderedArray.length - 1] <= array[i]) {
+                orderedArray.push(array[i]);
+            } else {
+                // find place to input the value in ordered array
+                for (let j = 0; j < orderedArray.length; j++) {
+                    if (orderedArray[j] > array[i]) {
+                        orderedArray.splice(j, 0, array[i]);
+                        break;
+                    }
                 }
             }
         }
+        return orderedArray
     }
+    
     let groupedArray = []
-    orderedArray.forEach(element => {
+    orderedArray(array).forEach(element => {
         if (groupedArray.length > 0 && groupedArray[groupedArray.length - 1][0] === element) {
             groupedArray[groupedArray.length - 1].push(element);
         } else {
