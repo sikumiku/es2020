@@ -8,9 +8,8 @@
 
 const input = [1,2,4,591,392,391,2,5,10,2,1,1,1,20,20]
 
-function cleanRoom(array) {
-    const orderedArray = (array) => {
-        let orderedArray = []
+const orderArray = (array) => {
+    let orderedArray = []
         for (let i = 0; i < array.length; i++) {
                 // push bigger value to the end or start the array
             if (orderedArray.length === 0 || orderedArray[orderedArray.length - 1] <= array[i]) {
@@ -26,10 +25,11 @@ function cleanRoom(array) {
             }
         }
         return orderedArray
-    }
-    
+}
+
+const groupElementsInArray = (array) => {
     let groupedArray = []
-    orderedArray(array).forEach(element => {
+    array.forEach(element => {
         if (groupedArray.length > 0 && groupedArray[groupedArray.length - 1][0] === element) {
             groupedArray[groupedArray.length - 1].push(element);
         } else {
@@ -39,4 +39,8 @@ function cleanRoom(array) {
     return groupedArray;
 }
 
+function cleanRoom(array) {    
+    let orderedArray = orderArray(array)
+    return groupElementsInArray(orderedArray)
+}
 console.log(cleanRoom(input))
